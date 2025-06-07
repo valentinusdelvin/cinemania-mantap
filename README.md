@@ -1,5 +1,5 @@
 
-# 🎥 Cinemania - Cinema Booking System
+# 🎥 Cinemania - Simple Cinema Booking System
 
 ## 📑 Description
 Cinemania is a simple desktop-based Cinema Booking System application built using **Java**, **SQLite**, and **Swing GUI**. The system allows users to register bookings for films, while administrators can manage the film list and view booking data.
