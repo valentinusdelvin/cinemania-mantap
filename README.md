@@ -16,7 +16,7 @@ Cinemania is a simple desktop-based Cinema Booking System application built usin
   - View personal booking history.
 - SQLite database integration for persistent data.
 
-## 🗄️ Database Structure
+## 🗂️ Project Structure
 
       src/
       ├── dao/               // Data Access Object (FilmDAO, BookingDAO, UserDAO, AdminDAO)
@@ -27,10 +27,41 @@ Cinemania is a simple desktop-based Cinema Booking System application built usin
       ├── util/              // DatabaseUtil to setup initial database
       └── Main.java          // Application entry point
 
+## 🗄️ Database Structure
+
+- **films**
+  - `id` INTEGER PRIMARY KEY AUTOINCREMENT
+  - `title` TEXT NOT NULL
+  - `description` TEXT
+  - `price` REAL NOT NULL
+
+- **bookings**
+  - `id` INTEGER PRIMARY KEY AUTOINCREMENT
+  - `film_id` INTEGER NOT NULL
+  - `username` TEXT NOT NULL
+  - `seat` TEXT NOT NULL
+  - `payment` REAL NOT NULL
+
+- **users**
+  - `id` INTEGER PRIMARY KEY AUTOINCREMENT
+  - `username` TEXT NOT NULL UNIQUE
+  - `password` TEXT NOT NULL
+
+- **admins**
+  - `id` INTEGER PRIMARY KEY AUTOINCREMENT
+  - `username` TEXT NOT NULL UNIQUE
+  - `password` TEXT NOT NULL
+
+## 🛠️ Technologies Used
+- **Java**: Programming language for application development.
+- **SQLite**: Lightweight database for storing film and booking data.
+- **JDBC**: Java Database Connectivity for database operations.
+- **Swing**: GUI toolkit for building the user interface.
+
 ## 📝 How to Run
 
-1. Make sure you have **JDK 17+** installed.
-2. Import the project into your favorite Java IDE (IntelliJ, Eclipse, etc.).
+1. Make sure you have **JDK 17+** and **SQLite JDBC** library installed.
+2. Clone the project into your favorite Java IDE (IntelliJ, Eclipse, etc.).
 3. Run `DatabaseUtil.setupDatabase()` once to create the required tables and dummy accounts.
 4. Run the `Main` class to start the application.
 
