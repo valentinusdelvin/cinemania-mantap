@@ -1,8 +1,8 @@
 
-# 🎥 Cinema Booking System — Java + SQLite + Swing
+# 🎥 Cinemania - Cinema Booking System
 
 ## 📑 Description
-This is a simple desktop-based Cinema Booking System application built using **Java**, **SQLite**, and **Swing GUI**. The system allows users to register bookings for films, while administrators can manage the film list and view booking data.
+Cinemania is a simple desktop-based Cinema Booking System application built using **Java**, **SQLite**, and **Swing GUI**. The system allows users to register bookings for films, while administrators can manage the film list and view booking data.
 
 ## 📦 Features
 - **Login system** for Admin and User roles.
