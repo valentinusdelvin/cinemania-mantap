@@ -2,6 +2,7 @@ package service;
 
 import dao.BookingDAO;
 import entity.Booking;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookingServiceImpl implements BookingService {
@@ -32,5 +33,15 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<Booking> getFilmBookings(int filmId) {
         return bookingDAO.getBookingsByFilm(filmId);
+    }
+
+    @Override
+    public List<String> getBookedSeatsByFilm(int filmId) {
+        List<Booking> bookings = bookingDAO.getBookingsByFilm(filmId);
+        List<String> seats = new ArrayList<>();
+        for (Booking booking : bookings) {
+            seats.add(booking.getSeat());
+        }
+        return seats;
     }
 }

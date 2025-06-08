@@ -62,8 +62,7 @@ Cinemania is a simple desktop-based Cinema Booking System application built usin
 
 1. Make sure you have **JDK 17+** and **SQLite JDBC** library installed.
 2. Clone the project into your favorite Java IDE (IntelliJ, Eclipse, etc.).
-3. Run `DatabaseUtil.setupDatabase()` once to create the required tables and dummy accounts.
-4. Run the `Main` class to start the application.
+3. Run the `Main` class to start the application.
 
 ## 🔑 Default Accounts
 

@@ -8,4 +8,5 @@ public interface BookingService {
     boolean checkSeatAvailability(int filmId, String seat);
     List<Booking> getUserBookings(String username);
     List<Booking> getFilmBookings(int filmId);
+    List<String> getBookedSeatsByFilm(int filmId);
 }
