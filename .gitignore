@@ -4,6 +4,7 @@ out/
 !**/src/test/**/out/
 *.jfr
 *.log
+*.db
 
 ### Eclipse ###
 .apt_generated
