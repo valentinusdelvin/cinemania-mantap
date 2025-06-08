@@ -64,6 +64,11 @@ Cinemania is a simple desktop-based Cinema Booking System application built usin
 2. Clone the project into your favorite Java IDE (IntelliJ, Eclipse, etc.).
 3. Run the `Main` class to start the application.
 
+## 🧾 Notes
+- The application uses an SQLite database file named `cinema.db` located in the project root.
+- The database file is not included in the repository; it will be created automatically after running the setup.
+- If you want to reset the database, delete the `cinema.db` file and run the setup again.
+
 ## 🔑 Default Accounts
 
 **Admins:**
@@ -73,9 +78,6 @@ Cinemania is a simple desktop-based Cinema Booking System application built usin
 **Users:**
 - Username: `user_123` | Password: `tesUser`
 - Username: `pemlan_123` | Password: `tesUser`
-
-## 📸 Screenshots (optional)
-*Coming Soon*
 
 ## 👨‍💻 Author
 
