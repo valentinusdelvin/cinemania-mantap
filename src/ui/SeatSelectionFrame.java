@@ -66,7 +66,6 @@ public class SeatSelectionFrame extends JFrame {
             }
         }
 
-        // Tombol Beli Sekarang
         JButton buyBtn = new JButton("Beli Kursi yang Dipilih");
         buyBtn.addActionListener(e -> {
             if (selectedSeats.isEmpty()) {
@@ -102,18 +101,15 @@ public class SeatSelectionFrame extends JFrame {
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
 
-        // Spacer area (jarak antara kursi dan layar)
         JPanel spacer = new JPanel();
         spacer.setPreferredSize(new Dimension(500, 50));
         bottomPanel.add(spacer, BorderLayout.NORTH);
 
-        // Label layar
         JLabel screenLabel = new JLabel("LAYAR", SwingConstants.CENTER);
         screenLabel.setFont(new Font("Arial", Font.BOLD, 18));
         screenLabel.setForeground(Color.BLUE);
         bottomPanel.add(screenLabel, BorderLayout.CENTER);
 
-        // Tombol beli di bawah
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(buyBtn);
         bottomPanel.add(buttonPanel, BorderLayout.SOUTH);
