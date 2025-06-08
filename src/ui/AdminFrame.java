@@ -35,6 +35,10 @@ public class AdminFrame extends JFrame {
         masukUserMenuBtn.setBounds(100, 150, 200, 40);
         add(masukUserMenuBtn);
 
+        JButton logoutBtn = new JButton("Logout");
+        logoutBtn.setBounds(80, 210, 240, 40);
+        add(logoutBtn);
+
         addFilmBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,6 +72,15 @@ public class AdminFrame extends JFrame {
         masukUserMenuBtn.addActionListener(e -> {
             new UserFrame(username, filmService, bookingService);
             dispose();
+        });
+
+        logoutBtn.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(null, "Yakin ingin logout?", "Konfirmasi Logout",
+                    JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                dispose();
+                new LoginFrame(filmService, bookingService);
+            }
         });
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);

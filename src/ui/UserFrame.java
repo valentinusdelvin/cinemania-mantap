@@ -91,8 +91,12 @@ public class UserFrame extends JFrame {
         });
 
         logoutBtn.addActionListener(e -> {
-            new LoginFrame(filmService, bookingService);
-            dispose();
+            int confirm = JOptionPane.showConfirmDialog(null, "Yakin ingin logout?", "Konfirmasi Logout",
+                    JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                dispose();
+                new LoginFrame(filmService, bookingService);
+            }
         });
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
