@@ -6,12 +6,15 @@ import service.BookingService;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SeatSelectionFrame extends JFrame {
     private String username;
     private int filmId;
     private int price;
     private BookingService bookingService;
+    private List<JButton> selectedSeats = new ArrayList<>();
 
     public SeatSelectionFrame(String username, int filmId, int price, BookingService bookingService) {
         this.username = username;
@@ -23,7 +26,7 @@ public class SeatSelectionFrame extends JFrame {
         setSize(600, 700);
         setLayout(new BorderLayout());
 
-        JPanel seatPanel = new JPanel(new GridLayout(5, 7, 5, 5));  // 5 baris, 7 kolom (6 kursi + 1 spasi)
+        JPanel seatPanel = new JPanel(new GridLayout(5, 7, 5, 5)); // 5 baris, 7 kolom (6 kursi + 1 spasi)
         String[][] seats = {
                 {"A1", "A2", "A3", "", "A4", "A5", "A6"},
                 {"B1", "B2", "B3", "", "B4", "B5", "B6"},
@@ -35,9 +38,12 @@ public class SeatSelectionFrame extends JFrame {
         for (String[] row : seats) {
             for (String seat : row) {
                 if (seat.equals("")) {
-                    seatPanel.add(new JLabel(""));  // spasi kosong (jalur)
+                    seatPanel.add(new JLabel("")); // spasi kosong (jalur)
                 } else {
                     JButton seatBtn = new JButton(seat);
+                    seatBtn.setOpaque(true);
+                    seatBtn.setBorderPainted(false);
+
                     if (!bookingService.checkSeatAvailability(filmId, seat)) {
                         seatBtn.setEnabled(false);
                         seatBtn.setBackground(Color.RED);
@@ -46,18 +52,12 @@ public class SeatSelectionFrame extends JFrame {
                     }
 
                     seatBtn.addActionListener((ActionEvent e) -> {
-                        int confirm = JOptionPane.showConfirmDialog(null,
-                                "Harga: " + price + "\nBooking kursi " + seatBtn.getText() + "?", "Konfirmasi",
-                                JOptionPane.YES_NO_OPTION);
-
-                        if (confirm == JOptionPane.YES_OPTION) {
-                            Booking booking = new Booking(0, username, filmId, seatBtn.getText(), price);
-                            if (bookingService.bookSeat(booking)) {
-                                JOptionPane.showMessageDialog(null, "Booking sukses!");
-                                dispose();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Gagal booking.");
-                            }
+                        if (seatBtn.getBackground() == Color.GREEN) {
+                            seatBtn.setBackground(Color.YELLOW);
+                            selectedSeats.add(seatBtn);
+                        } else if (seatBtn.getBackground() == Color.YELLOW) {
+                            seatBtn.setBackground(Color.GREEN);
+                            selectedSeats.remove(seatBtn);
                         }
                     });
 
@@ -66,16 +66,57 @@ public class SeatSelectionFrame extends JFrame {
             }
         }
 
+        // Tombol Beli Sekarang
+        JButton buyBtn = new JButton("Beli Kursi yang Dipilih");
+        buyBtn.addActionListener(e -> {
+            if (selectedSeats.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Pilih kursi terlebih dahulu!");
+                return;
+            }
+
+            int totalPrice = selectedSeats.size() * price;
+            int confirm = JOptionPane.showConfirmDialog(null,
+                    "Total Harga: " + totalPrice + "\nLanjutkan Pembayaran?", "Konfirmasi",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                boolean success = true;
+                for (JButton btn : selectedSeats) {
+                    String seatCode = btn.getText();
+                    Booking booking = new Booking(0, username, filmId, seatCode, price);
+                    if (bookingService.bookSeat(booking)) {
+                        btn.setBackground(Color.RED);
+                        btn.setEnabled(false);
+                    } else {
+                        success = false;
+                        JOptionPane.showMessageDialog(null, "Gagal booking kursi " + seatCode);
+                    }
+                }
+
+                if (success) {
+                    JOptionPane.showMessageDialog(null, "Booking berhasil!");
+                    dispose();
+                }
+            }
+        });
+
         JPanel bottomPanel = new JPanel(new BorderLayout());
 
+        // Spacer area (jarak antara kursi dan layar)
         JPanel spacer = new JPanel();
         spacer.setPreferredSize(new Dimension(500, 50));
         bottomPanel.add(spacer, BorderLayout.NORTH);
 
+        // Label layar
         JLabel screenLabel = new JLabel("LAYAR", SwingConstants.CENTER);
         screenLabel.setFont(new Font("Arial", Font.BOLD, 18));
         screenLabel.setForeground(Color.BLUE);
         bottomPanel.add(screenLabel, BorderLayout.CENTER);
+
+        // Tombol beli di bawah
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(buyBtn);
+        bottomPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(seatPanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
