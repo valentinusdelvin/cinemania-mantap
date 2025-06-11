@@ -20,9 +20,18 @@ public class BookingServiceImpl implements BookingService {
         return false;
     }
 
+    public boolean bookSeat(String username, int filmId, String seat, double payment) {
+        Booking booking = new Booking(0, username, filmId, seat, payment);
+        return bookSeat(booking);  // tetap panggil method utama
+    }
+
     @Override
     public boolean checkSeatAvailability(int filmId, String seat) {
         return bookingDAO.isSeatAvailable(filmId, seat);
+    }
+
+    public boolean checkSeatAvailability(Booking booking) {
+        return checkSeatAvailability(booking.getFilmId(), booking.getSeat());
     }
 
     @Override
